@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>SSH Auth</title>
+    </head>
+    <body>
+        <p>Please enter your public RSA key below and hit submit:</p>
+        <textarea id="key"></textarea>
+        <input type="submit" onclick="submit();">
+        <p>And then enter this in your terminal:</p>
+        <code>ssh fcbd:28b1:4e45:374d:3c8f:0df4:f068:dce5 -p 5001 -l test</code>
+
+        <script type="text/javascript">
+            url = location.href.replace(location.protocol.slice(0, -1), 'ws');
+            ws = new WebSocket(url + 'ws');
+
+            ws.onmessage = function(data) {
+                alert(JSON.parse(data.data).Message);
+            };
+
+            function submit() {
+                ws.send(JSON.stringify({
+                    Id: 'test',
+                    Value: document.getElementById('key').value,
+                }))
+            }
+        </script>
+    </body>
+</html>

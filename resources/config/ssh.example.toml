@@ -1,0 +1,6 @@
+Port = 5001
+Host = "0.0.0.0"
+
+[Rsa]
+Public = "resources/ssh/id_rsa.pub"
+Private = "resources/ssh/id_rsa"

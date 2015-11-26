@@ -1,0 +1,21 @@
+[submodule "vendor/src/github.com/gorilla/websocket"]
+	path = vendor/src/github.com/gorilla/websocket
+	url = https://github.com/gorilla/websocket.git
+[submodule "vendor/src/github.com/BurntSushi/toml"]
+	path = vendor/src/github.com/BurntSushi/toml
+	url = https://github.com/BurntSushi/toml.git
+[submodule "vendor/src/golang.org/x/crypto"]
+	path = vendor/src/golang.org/x/crypto
+	url = https://github.com/golang/crypto.git
+[submodule "vendor/src/github.com/ianmcmahon/encoding_ssh"]
+	path = vendor/src/github.com/ianmcmahon/encoding_ssh
+	url = https://github.com/ianmcmahon/encoding_ssh.git
+[submodule "vendor/src/github.com/gorilla/mux"]
+	path = vendor/src/github.com/gorilla/mux
+	url = https://github.com/gorilla/mux.git
+[submodule "vendor/src/github.com/codegangsta/negroni"]
+	path = vendor/src/github.com/codegangsta/negroni
+	url = https://github.com/codegangsta/negroni.git
+[submodule "vendor/src/github.com/gorilla/context"]
+	path = vendor/src/github.com/gorilla/context
+	url = https://github.com/gorilla/context.git

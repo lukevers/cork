@@ -1,0 +1,12 @@
+# Global Files
+.DS_Store
+
+# Specific Files
+/resources/config/http.toml
+/resources/config/ssh.toml
+/resources/ssh/id_rsa
+/resources/ssh/id_rsa.pub
+
+# Folders
+/bin
+/pkg
