@@ -8,7 +8,7 @@
         <textarea id="key"></textarea>
         <input type="submit" onclick="submit();">
         <p>And then enter this in your terminal:</p>
-        <code>ssh fcbd:28b1:4e45:374d:3c8f:0df4:f068:dce5 -p 5001 -l test</code>
+        <code>ssh fcbd:28b1:4e45:374d:3c8f:0df4:f068:dce5 -p 5001 -l {{ .Id }}</code>
 
         <script type="text/javascript">
             url = location.href.replace(location.protocol.slice(0, -1), 'ws');
@@ -20,7 +20,6 @@
 
             function submit() {
                 ws.send(JSON.stringify({
-                    Id: 'test',
                     Value: document.getElementById('key').value,
                 }))
             }

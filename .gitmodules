@@ -19,3 +19,9 @@
 [submodule "vendor/src/github.com/gorilla/context"]
 	path = vendor/src/github.com/gorilla/context
 	url = https://github.com/gorilla/context.git
+[submodule "vendor/src/github.com/gorilla/sessions"]
+	path = vendor/src/github.com/gorilla/sessions
+	url = https://github.com/gorilla/sessions.git
+[submodule "vendor/src/github.com/gorilla/securecookie"]
+	path = vendor/src/github.com/gorilla/securecookie
+	url = https://github.com/gorilla/securecookie.git

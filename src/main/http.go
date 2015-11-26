@@ -9,6 +9,9 @@ import (
 	"github.com/gorilla/websocket"
 	"github.com/codegangsta/negroni"
 	"html/template"
+	"crypto/rand"
+	"encoding/base64"
+	"github.com/gorilla/sessions"
 )
 
 type HttpServer struct {
@@ -22,6 +25,7 @@ var upgrader = websocket.Upgrader{
 }
 
 var Connections map[string]*websocket.Conn = make(map[string]*websocket.Conn)
+var store = sessions.NewCookieStore([]byte("something-very-secret"))
 
 type Message struct {
 	Message string
@@ -49,21 +53,32 @@ func UserHasBeenAuthorized(id string) {
 }
 
 func root(w http.ResponseWriter, r *http.Request) {
+	session, _ := store.Get(r, "session-name")
+	if session.IsNew {
+		id, err := random(32)
+		if err == nil {
+			session.Values["Id"] = id
+			session.Save(r, w)
+		}
+	}
+
+
 	templates := template.Must(template.ParseGlob("resources/html/*.html"))
 	templates.ExecuteTemplate(w, "index.html", struct{
 		Id string
 	}{
-		Id: "test",
+		Id: session.Values["Id"].(string),
 	})
 }
 
 func ws(w http.ResponseWriter, r *http.Request) {
+	session, _ := store.Get(r, "session-name")
 	conn, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
 		log.Println(err)
 	}
 
-	Connections["test"] = conn
+	Connections[session.Values["Id"].(string)] = conn
 
 	for {
 		var i map[string]string
@@ -73,6 +88,12 @@ func ws(w http.ResponseWriter, r *http.Request) {
 		}
 
 		log.Println(i)
-		Keys[i["Id"]] = i["Value"]
+		Keys[session.Values["Id"].(string)] = i["Value"]
 	}
+}
+
+func random(size int) (string, error) {
+	bytes := make([]byte, size)
+	_, err := rand.Read(bytes)
+	return base64.URLEncoding.EncodeToString(bytes), err
 }
