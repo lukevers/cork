@@ -36,4 +36,3 @@ func file(folder, file string) string {
 
 	return string(data)
 }
-

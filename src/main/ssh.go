@@ -2,13 +2,13 @@
 package main
 
 import (
+	"errors"
+	"fmt"
+	encssh "github.com/ianmcmahon/encoding_ssh"
 	"golang.org/x/crypto/ssh"
 	"io/ioutil"
-	"net"
 	"log"
-	"fmt"
-	"errors"
-	encssh "github.com/ianmcmahon/encoding_ssh"
+	"net"
 	"reflect"
 )
 

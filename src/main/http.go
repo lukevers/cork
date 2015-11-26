@@ -2,16 +2,16 @@
 package main
 
 import (
-	"log"
-	"github.com/gorilla/mux"
-	"net/http"
-	"fmt"
-	"github.com/gorilla/websocket"
-	"github.com/codegangsta/negroni"
-	"html/template"
 	"crypto/rand"
 	"encoding/base64"
+	"fmt"
+	"github.com/codegangsta/negroni"
+	"github.com/gorilla/mux"
 	"github.com/gorilla/sessions"
+	"github.com/gorilla/websocket"
+	"html/template"
+	"log"
+	"net/http"
 )
 
 type HttpServer struct {
@@ -62,9 +62,8 @@ func root(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-
 	templates := template.Must(template.ParseGlob("resources/html/*.html"))
-	templates.ExecuteTemplate(w, "index.html", struct{
+	templates.ExecuteTemplate(w, "index.html", struct {
 		Id string
 	}{
 		Id: session.Values["Id"].(string),

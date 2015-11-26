@@ -2,14 +2,14 @@
 package main
 
 import (
-	"sync"
 	"log"
+	"sync"
 )
 
 var (
 	Conf   *Config
 	waitgp sync.WaitGroup
-	Keys  map[string]string = make(map[string]string)
+	Keys   map[string]string = make(map[string]string)
 )
 
 func init() {
