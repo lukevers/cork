@@ -7,21 +7,22 @@ import (
 )
 
 var (
-	Conf   *Config
+	Cork *Config
 	waitgp sync.WaitGroup
 	Keys   map[string]string = make(map[string]string)
+	
 )
 
 func init() {
 	log.Println("Reading configuration files")
-	Conf = LoadAllConfigs("resources/config/")
+	Cork = LoadAllConfigs("resources/config/")
 	waitgp.Add(1)
 }
 
 func main() {
-	log.Println("Starting http server on", Conf.Http.Host, Conf.Http.Port)
-	go Conf.Http.Run()
-	log.Println("Starting ssh server on", Conf.Ssh.Host, Conf.Ssh.Port)
-	go Conf.Ssh.Run()
+	log.Println("Starting http server on", Cork.Http.Host, Cork.Http.Port)
+	go Cork.Http.Run()
+	log.Println("Starting ssh server on", Cork.Ssh.Host, Cork.Ssh.Port)
+	go Cork.Ssh.Run()
 	waitgp.Wait()
 }

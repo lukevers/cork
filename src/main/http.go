@@ -12,11 +12,13 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"cork/session"
 )
 
 type HttpServer struct {
 	Port int
 	Host string
+	Session *session.Session
 }
 
 var upgrader = websocket.Upgrader{
@@ -24,14 +26,17 @@ var upgrader = websocket.Upgrader{
 	WriteBufferSize: 1024,
 }
 
-var Connections map[string]*websocket.Conn = make(map[string]*websocket.Conn)
-var store = sessions.NewCookieStore([]byte("something-very-secret"))
+var (
+	store *sessions.Store
+	Connections map[string]*websocket.Conn = make(map[string]*websocket.Conn)
+)
 
 type Message struct {
 	Message string
 }
 
 func (s *HttpServer) Run() {
+	s.Session.New()
 	router := mux.NewRouter()
 	router.HandleFunc("/", root)
 	router.HandleFunc("/ws", ws)
@@ -53,6 +58,7 @@ func UserHasBeenAuthorized(id string) {
 }
 
 func root(w http.ResponseWriter, r *http.Request) {
+	store := Cork.Http.Session.GetStore()
 	session, _ := store.Get(r, "session-name")
 	if session.IsNew {
 		id, err := random(32)
@@ -71,6 +77,7 @@ func root(w http.ResponseWriter, r *http.Request) {
 }
 
 func ws(w http.ResponseWriter, r *http.Request) {
+	store := Cork.Http.Session.GetStore()
 	session, _ := store.Get(r, "session-name")
 	conn, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {

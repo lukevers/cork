@@ -1,2 +1,10 @@
 Port = 5000
 Host = "0.0.0.0"
+
+[Sessions]
+# Available options:
+#  - cookie
+#  - mysql
+#  - sqlite
+Store = "cookie"
+Secret = "something-very-secret"

@@ -15,12 +15,12 @@ type Config struct {
 func LoadAllConfigs(folder string) *Config {
 	c := Config{}
 
-	// Httpd
+	// Http
 	if _, err := toml.Decode(file(folder, "http.toml"), &c.Http); err != nil {
 		log.Fatal("Could not decode config file:", err)
 	}
 
-	// Sshd
+	// Ssh
 	if _, err := toml.Decode(file(folder, "ssh.toml"), &c.Ssh); err != nil {
 		log.Fatal("Could not decode config file:", err)
 	}
